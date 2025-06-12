@@ -4,7 +4,6 @@ import sys
 import boto3
 import streamlit as st
 
-## We will be suing Titan Embeddings Model To generate Embedding
 
 from langchain_community.embeddings import BedrockEmbeddings
 from langchain_aws.chat_models.bedrock import ChatBedrock
@@ -26,6 +25,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 
 ## Bedrock Clients
+##  Titan Embeddings Model To generate Embedding
 bedrock=boto3.client(service_name="bedrock-runtime")
 bedrock_embeddings=BedrockEmbeddings(model_id="amazon.titan-embed-text-v1",client=bedrock)
 
@@ -52,7 +52,7 @@ def get_vector_store(docs):
     vectorstore_faiss.save_local("faiss_index")
 
 def get_novalite_llm():
-    ##create the Amazon NOva Model
+    ##create the Amazon Nova Model
     llm=ChatBedrock(model_id="amazon.nova-lite-v1:0",client=bedrock,
                 model_kwargs={'maxTokens':512})
     
@@ -100,7 +100,7 @@ def get_response_llm(llm,vectorstore_faiss,query):
 def main():
     st.set_page_config("Chat PDF")
     
-    st.header("Chat with PDF using AWS Bedrock💁")
+    st.header("Chat with PDF using AWS Bedrock")
 
     user_question = st.text_input("Ask a Question from the PDF Files")
 
